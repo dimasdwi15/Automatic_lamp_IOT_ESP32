@@ -1,4 +1,5 @@
-const endpoint = "https://7eac7d55-5878-4c7d-8ff4-c3e739f267ba-00-31ob90z8or16t.janeway.replit.dev/";
+// Ganti URL endpoint ke IP publik dan port hasil port forwarding
+const endpoint = "http://103.105.57.88:8080/";
 
 function getLamp1() {
    fetch(endpoint + "lamp1")
@@ -29,6 +30,7 @@ function getLamp3() {
          lampTiga.innerText = result;
       });
 }
+
 function setLamp1() {
    const newState = lampSatu.innerText === "ON" ? "OFF" : "ON";
    fetch(endpoint + "lamp1", {
@@ -56,13 +58,12 @@ function setLamp3() {
    }).then(() => getLamp3());
 }
 
-
 function setLamp4() {
    lampEmpat.style.backgroundColor = "red";
    lampEmpatImage.src = "assets/lampu_on.png";
 }
 
-// Panggil saat halaman pertama dibuka
+// Panggil saat halaman dimuat
 getLamp1();
 getLamp2();
 getLamp3();
