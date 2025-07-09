@@ -2,84 +2,73 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Smart home</title>
-
+  <title>Smart home</title>
 </head>
 
 <body>
+  <div class="layouts">
+    <!-- navbar -->
+    <section class="navbar">
+      <h3>AUTOMATIC LAMP</h3>
+    </section>
 
-    <div class="layouts">
+    <!-- title -->
+    <section class="title">
+      <h3>LAMP MANAGER</h3>
+    </section>
 
-        <!-- ini navbar -->
-        <section class="navbar">
-            <h3>AUTOMATIC LAMP</h3>
-        </section>
-        <!-- navbar end -->
+    <!-- lamp section -->
+    <section class="lamps">
+      <div class="lamp">
+        <img src="assets/lampu_off.png" class="lamp-image" id="lampSatuImage" />
+        <p>LAMP 1</p>
+        <button class="lamp-submit" id="lampSatu" onclick="setLamp1()">ON</button>
+      </div>
 
-        <!-- title -->
-         <section class="title">
-            <h3>LAMP MANAGER</h3>
-         </section>
+      <div class="lamp">
+        <img src="assets/lampu_off.png" class="lamp-image" id="lampDuaImage" />
+        <p class="lampText">LAMP 2</p>
+        <button class="lamp-submit" id="lampDua" onclick="setLamp2()">ON</button>
+      </div>
 
-        <!-- section items start -->
-        <section class="lamps">
+      <div class="lamp">
+        <img src="assets/lampu_off.png" class="lamp-image" id="lampTigaImage" />
+        <p class="lampText">LAMP 3</p>
+        <button class="lamp-submit" id="lampTiga" onclick="setLamp3()">ON</button>
+      </div>
 
-            <!-- lamp blue -->
-            <div class="lamp">
-                <img src="assets/lampu_off.png" class="lamp-image" id="lampSatuImage" />
-                <p>LAMP 1</p>
-                <button class="lamp-submit" id="lampSatu" onclick="setLamp1()">ON</button>
-            </div>
+      <div class="lamp">
+        <img src="assets/lampu_off.png" class="lamp-image" id="lampEmpatImage" />
+        <p class="lampText">LAMP 4</p>
+        <button class="lamp-submit" id="lampEmpat" onclick="setLamp4()">ON</button>
+      </div>
 
-            <div class="lamp">
-                <img src="assets/lampu_off.png" class="lamp-image" id="lampDuaImage"/>
-                <p class="lampText">LAMP 2</p>
-                <button class="lamp-submit" id="lampDua" onclick="setLamp2()">ON</button>
-            </div>
+      <!-- Tombol tunggal All ON/OFF -->
+      <div class="lamp all-control">
+        <button class="lamp-submit" id="toggleAllButton" onclick="toggleAll()">TURN ALL ON</button>
+      </div>
+    </section>
 
-            <div class="lamp">
-                <img src="assets/lampu_off.png" class="lamp-image" id="lampTigaImage" />
-                <p class="lampText">LAMP 3</p>
-                <button class="lamp-submit" id="lampTiga" onclick="setLamp3()">ON</button>
-            </div>
+    <!-- bottom bar -->
+    <section class="bottomBar">
+      <ul>
+        <li><a href="/"><i class="fa-solid fa-home"></i></a></li>
+        <li><a href="lamp.html"><i class="fa-solid fa-lightbulb"></i></a></li>
+        <li><a href="user.html"><i class="fa-solid fa-user"></i></a></li>
+      </ul>
+    </section>
+  </div>
 
-            <div class="lamp">
-                <img src="assets/lampu_off.png" class="lamp-image" id="lampEmpatImage"/>
-                <p class="lampText">LAMP 4</p>
-                <button class="lamp-submit" id="lampEmpat" onclick="setLamp4()">ON</button>
-            </div>
-
-        </section>
-        <!-- section items end -->
-
-        <!-- bootombar start -->
-        <section class="bottomBar">
-            <ul>
-                <li>
-                    <a href="/"><i class="fa-solid fa-home"></i></a>
-                </li>
-                <li>
-                    <a href="lamp.html "><i class="fa-solid fa-lightbulb"></i></a>
-                </li>
-                <li>
-                    <a href="user.html"><i class="fa-solid fa-user"></i></a>
-                </li>
-            </ul>
-        </section>
-        <!-- bootombar -->
-
-
-    </div>
-
-    <script src="main.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
