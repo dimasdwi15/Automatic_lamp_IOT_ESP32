@@ -1,115 +1,65 @@
-const endpoint = "https://7eac7d55-5878-4c7d-8ff4-c3e739f267ba-00-31ob90z8or16t.janeway.replit.dev/";
+const endpoint = "https://iot-lamp-9e13b-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
-function getLamp1() {
-  fetch(endpoint + "lamp1")
+function getLamp(nomor, element, imageElement) {
+  fetch(endpoint + `lamp${nomor}.json`)
     .then(res => res.text())
     .then(result => {
-      lampSatu.style.backgroundColor = result === "ON" ? "blue" : "red";
-      lampSatuImage.src = result === "ON" ? "./assets/lampu_on.png" : "./assets/lampu_off.png";
-      lampSatu.innerText = result;
+      const status = result.replace(/"/g, "");
+      element.style.backgroundColor = status === "ON" ? "blue" : "red";
+      imageElement.src = status === "ON" ? "./assets/lampu_on.png" : "./assets/lampu_off.png";
+      element.innerText = status;
     });
 }
 
-function getLamp2() {
-  fetch(endpoint + "lamp2")
-    .then(res => res.text())
-    .then(result => {
-      lampDua.style.backgroundColor = result === "ON" ? "blue" : "red";
-      lampDuaImage.src = result === "ON" ? "./assets/lampu_on.png" : "./assets/lampu_off.png";
-      lampDua.innerText = result;
-    });
-}
-
-function getLamp3() {
-  fetch(endpoint + "lamp3")
-    .then(res => res.text())
-    .then(result => {
-      lampTiga.style.backgroundColor = result === "ON" ? "blue" : "red";
-      lampTigaImage.src = result === "ON" ? "./assets/lampu_on.png" : "./assets/lampu_off.png";
-      lampTiga.innerText = result;
-    });
-}
-
-function setLamp1() {
-  const newState = lampSatu.innerText === "ON" ? "OFF" : "ON";
-  fetch(endpoint + "lamp1", {
-    method: "POST",
+function setLamp(nomor, element, imageElement) {
+  const newState = element.innerText === "ON" ? "OFF" : "ON";
+  fetch(endpoint + `lamp${nomor}.json`, {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: newState })
-  }).then(() => getLamp1());
+    body: JSON.stringify(newState)
+  }).then(() => getLamp(nomor, element, imageElement));
 }
 
-function setLamp2() {
-  const newState = lampDua.innerText === "ON" ? "OFF" : "ON";
-  fetch(endpoint + "lamp2", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: newState })
-  }).then(() => getLamp2());
-}
+// Contoh penggunaan (pastikan variabel lampSatu, lampSatuImage, dll sudah diinisialisasi sebelumnya)
+function getLamp1() { getLamp(1, lampSatu, lampSatuImage); }
+function getLamp2() { getLamp(2, lampDua, lampDuaImage); }
+function getLamp3() { getLamp(3, lampTiga, lampTigaImage); }
 
-function setLamp3() {
-  const newState = lampTiga.innerText === "ON" ? "OFF" : "ON";
-  fetch(endpoint + "lamp3", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: newState })
-  }).then(() => getLamp3());
-}
+function setLamp1() { setLamp(1, lampSatu, lampSatuImage); }
+function setLamp2() { setLamp(2, lampDua, lampDuaImage); }
+function setLamp3() { setLamp(3, lampTiga, lampTigaImage); }
 
 function setLamp4() {
-  // Toggle manual lokal
   const current = lampEmpat.innerText;
-  if (current === "ON") {
-    lampEmpat.style.backgroundColor = "red";
-    lampEmpatImage.src = "assets/lampu_off.png";
-    lampEmpat.innerText = "OFF";
-  } else {
-    lampEmpat.style.backgroundColor = "blue";
-    lampEmpatImage.src = "assets/lampu_on.png";
-    lampEmpat.innerText = "ON";
-  }
+  const newState = current === "ON" ? "OFF" : "ON";
+  lampEmpat.style.backgroundColor = newState === "ON" ? "blue" : "red";
+  lampEmpatImage.src = newState === "ON" ? "assets/lampu_on.png" : "assets/lampu_off.png";
+  lampEmpat.innerText = newState;
 }
 
-// Toggle semua lampu
 function toggleAll() {
-  const toggleBtn = document.getElementById("toggleAllButton");
-  const allOn = lampSatu.innerText === "ON" &&
-                lampDua.innerText === "ON" &&
-                lampTiga.innerText === "ON" &&
-                lampEmpat.innerText === "ON";
+  const newState = (lampSatu.innerText === "ON" &&
+                    lampDua.innerText === "ON" &&
+                    lampTiga.innerText === "ON" &&
+                    lampEmpat.innerText === "ON") ? "OFF" : "ON";
 
-  const newState = allOn ? "OFF" : "ON";
+  const headers = { "Content-Type": "application/json" };
+  const body = JSON.stringify(newState);
 
-  fetch(endpoint + "lamp1", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: newState })
-  }).then(() => getLamp1());
+  fetch(endpoint + "lamp1.json", { method: "PUT", headers, body }).then(() => getLamp1());
+  fetch(endpoint + "lamp2.json", { method: "PUT", headers, body }).then(() => getLamp2());
+  fetch(endpoint + "lamp3.json", { method: "PUT", headers, body }).then(() => getLamp3());
 
-  fetch(endpoint + "lamp2", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: newState })
-  }).then(() => getLamp2());
-
-  fetch(endpoint + "lamp3", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: newState })
-  }).then(() => getLamp3());
-
-  // Lampu 4 lokal saja
   lampEmpat.style.backgroundColor = newState === "ON" ? "blue" : "red";
   lampEmpatImage.src = newState === "ON" ? "assets/lampu_on.png" : "assets/lampu_off.png";
   lampEmpat.innerText = newState;
 
-  // Update tampilan tombol
+  const toggleBtn = document.getElementById("toggleAllButton");
   toggleBtn.innerText = newState === "ON" ? "TURN ALL OFF" : "TURN ALL ON";
   toggleBtn.style.backgroundColor = newState === "ON" ? "red" : "blue";
 }
 
-// Saat halaman dimuat
+// Jalankan saat load
 getLamp1();
 getLamp2();
 getLamp3();
