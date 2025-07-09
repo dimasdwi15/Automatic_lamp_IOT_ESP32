@@ -106,7 +106,7 @@ function toggleAll() {
 
   // Update tampilan tombol
   toggleBtn.innerText = newState === "ON" ? "TURN ALL OFF" : "TURN ALL ON";
-  toggleBtn.style.backgroundColor = newState === "ON" ? "blue" : "red";
+  toggleBtn.style.backgroundColor = newState === "ON" ? "red" : "blue";
 }
 
 // Saat halaman dimuat
